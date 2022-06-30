@@ -12,41 +12,41 @@ import com.snively.window.listeners.ButtonDisconnectFromReaderActionListener;
 
 public class ApplicationWindow {
 
-	private final JFrame frame;
+    private final JFrame frame;
 
-	private final JButton buttonConnectToReader = new JButton("Connect");
-	private final JButton buttonDisconnectFromReader = new JButton("Disconnect");
+    private final JButton buttonConnectToReader = new JButton("Connect");
+    private final JButton buttonDisconnectFromReader = new JButton("Disconnect");
 
-	public ApplicationWindow(String title) {
-		this.frame = new JFrame(title);
+    public ApplicationWindow(String title) {
+        this.frame = new JFrame(title);
 
-		frame.setSize(Constants.APPLICATION_WINDOW_SIZE);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setVisible(true);
+        frame.setSize(Constants.APPLICATION_WINDOW_SIZE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setVisible(true);
 
-		buttonConnectToReader.setSize(new Dimension(75, 25));
-		buttonConnectToReader.addActionListener(new ButtonConnectToReaderActionListener());
+        buttonConnectToReader.setSize(new Dimension(75, 25));
+        buttonConnectToReader.addActionListener(new ButtonConnectToReaderActionListener());
 
-		buttonDisconnectFromReader.setSize(new Dimension(75, 25));
-		buttonDisconnectFromReader.addActionListener(new ButtonDisconnectFromReaderActionListener());
-		
-		frame.add(buttonConnectToReader);
-		frame.add(buttonDisconnectFromReader);
+        buttonDisconnectFromReader.setSize(new Dimension(75, 25));
+        buttonDisconnectFromReader.addActionListener(new ButtonDisconnectFromReaderActionListener());
 
-		frame.setLayout(new FlowLayout());
-		frame.pack();
-	}
+        frame.add(buttonConnectToReader);
+        frame.add(buttonDisconnectFromReader);
 
-	public JFrame getFrame() {
-		return frame;
-	}
+        frame.setLayout(new FlowLayout());
+        frame.pack();
+    }
 
-	public JButton getButtonConnectToReader() {
-		return buttonConnectToReader;
-	}
+    public JFrame getFrame() {
+        return frame;
+    }
 
-	public JButton getButtonDisconnectFromReader() {
-		return buttonDisconnectFromReader;
-	}
+    public JButton getButtonConnectToReader() {
+        return buttonConnectToReader;
+    }
+
+    public JButton getButtonDisconnectFromReader() {
+        return buttonDisconnectFromReader;
+    }
 }

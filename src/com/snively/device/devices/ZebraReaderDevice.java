@@ -16,95 +16,95 @@ import com.snively.device.ReaderDevice;
 
 public class ZebraReaderDevice extends ReaderDevice implements RfidEventsListener {
 
-	/**
-	 * Provides access to the device's hardware configurations and network.
-	 */
-	private final RFIDReader reader = new RFIDReader();
+    /**
+     * Provides access to the device's hardware configurations and network.
+     */
+    private final RFIDReader reader = new RFIDReader();
 
-	public ZebraReaderDevice(InetSocketAddress endpoint) {
-		super(endpoint);
-	}
+    public ZebraReaderDevice(InetSocketAddress endpoint) {
+        super(endpoint);
+    }
 
-	@Override
-	public boolean configure() {
-		reader.setHostName(endpoint.getHostName());
-		reader.setPort(endpoint.getPort());
-		try {
-			reader.connect();
-			
-			reader.Events.setInventoryStartEvent(true);
-			reader.Events.setInventoryStopEvent(true);
-			reader.Events.setTagReadEvent(true);
-			reader.Events.addEventsListener(this);
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-		
-		return reader.isConnected();
-	}
+    @Override
+    public boolean configure() {
+        reader.setHostName(endpoint.getHostName());
+        reader.setPort(endpoint.getPort());
+        try {
+            reader.connect();
 
-	@Override
-	public void eventReadNotify(RfidReadEvents events) {
-		if (reader == null)
-			return;
+            reader.Events.setInventoryStartEvent(true);
+            reader.Events.setInventoryStopEvent(true);
+            reader.Events.setTagReadEvent(true);
+            reader.Events.addEventsListener(this);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
 
-		final TagData[] tags = reader.Actions.getReadTags(100);
-		if (tags == null)
-			return;
+        return reader.isConnected();
+    }
 
-		final ArrayList<ReadTag> results = new ArrayList<ReadTag>();
+    @Override
+    public void eventReadNotify(RfidReadEvents events) {
+        if (reader == null)
+            return;
 
-		for (int it = 0; it < tags.length; it++) {
-			final TagData tag = tags[it];
+        final TagData[] tags = reader.Actions.getReadTags(100);
+        if (tags == null)
+            return;
 
-			if (tag == null)
-				continue;
+        final ArrayList<ReadTag> results = new ArrayList<ReadTag>();
 
-			results.add(new ReadTag(tag.getTagID(), tag.getPeakRSSI()));
-		}
+        for (int it = 0; it < tags.length; it++) {
+            final TagData tag = tags[it];
 
-		if (event.predicate(this, results, reader))
-			event.execute(this, results, reader);
-	}
+            if (tag == null)
+                continue;
 
-	@Override
-	public void eventStatusNotify(RfidStatusEvents events) {
-		final STATUS_EVENT_TYPE status = events.StatusEventData.getStatusEventType();
+            results.add(new ReadTag(tag.getTagID(), tag.getPeakRSSI()));
+        }
 
-		if (status == STATUS_EVENT_TYPE.INVENTORY_START_EVENT) {
+        if (event.predicate(this, results, reader))
+            event.execute(this, results, reader);
+    }
 
-		} else if (status == STATUS_EVENT_TYPE.INVENTORY_STOP_EVENT) {
+    @Override
+    public void eventStatusNotify(RfidStatusEvents events) {
+        final STATUS_EVENT_TYPE status = events.StatusEventData.getStatusEventType();
 
-		}
-	}
+        if (status == STATUS_EVENT_TYPE.INVENTORY_START_EVENT) {
 
-	@Override
-	public void start() {
-		try {
-			reader.Actions.Inventory.perform();
-			setPerformingInventory(true);
-		} catch (InvalidUsageException | OperationFailureException exception) {
-			exception.printStackTrace();
-		}
-	}
+        } else if (status == STATUS_EVENT_TYPE.INVENTORY_STOP_EVENT) {
 
-	@Override
-	public void stop() {
-		try {
-			reader.Actions.Inventory.stop();
-			setPerformingInventory(false);
-		} catch (InvalidUsageException | OperationFailureException exception) {
-			exception.printStackTrace();
-		}
-	}
-	
-	@Override
-	public boolean terminate() {
-		try {
-			reader.disconnect();	
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-		return !reader.isConnected();
-	}
+        }
+    }
+
+    @Override
+    public void start() {
+        try {
+            reader.Actions.Inventory.perform();
+            setPerformingInventory(true);
+        } catch (InvalidUsageException | OperationFailureException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public void stop() {
+        try {
+            reader.Actions.Inventory.stop();
+            setPerformingInventory(false);
+        } catch (InvalidUsageException | OperationFailureException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean terminate() {
+        try {
+            reader.disconnect();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return !reader.isConnected();
+    }
 }

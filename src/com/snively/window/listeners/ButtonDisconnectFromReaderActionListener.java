@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class ButtonDisconnectFromReaderActionListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		
-	}
+    @Override
+    public void actionPerformed(ActionEvent event) {
+
+    }
 }

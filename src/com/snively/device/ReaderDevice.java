@@ -5,77 +5,80 @@ import java.util.ArrayList;
 
 public abstract class ReaderDevice {
 
-	/**
-	 * The remote address for this device.
-	 */
-	protected final InetSocketAddress endpoint;
+    /**
+     * The remote address for this device.
+     */
+    protected final InetSocketAddress endpoint;
 
-	/**
-	 * The current event to execute on inventory reporting.
-	 */
-	protected ReaderEvent<Object> event;
+    /**
+     * The current event to execute on inventory reporting.
+     */
+    protected ReaderEvent<Object> event;
 
-	/**
-	 * The antennas that are connected to this device.
-	 */
-	protected final ArrayList<Antenna> antennas = new ArrayList<Antenna>();
+    /**
+     * The antennas that are connected to this device.
+     */
+    protected final ArrayList<Antenna> antennas = new ArrayList<Antenna>();
 
-	/**
-	 * Denotes if this device is currently performing inventory operations.
-	 */
-	private boolean performingInventory;
+    /**
+     * Denotes if this device is currently performing inventory operations.
+     */
+    private boolean performingInventory;
 
-	/**
-	 * Configures the settings for this device.
-	 * @return Denotes the success or failure of the operation.
-	 */
-	public abstract boolean configure();
-	
-	/**
-	 * Terminates this device and performs cleanup operations.
-	 * @return Denotes the success or failure of the operation.
-	 */
-	public abstract boolean terminate();
+    /**
+     * Configures the settings for this device.
+     * 
+     * @return Denotes the success or failure of the operation.
+     */
+    public abstract boolean configure();
 
-	/**
-	 * Starts the inventory operations for this device.
-	 */
-	public abstract void start();
+    /**
+     * Terminates this device and performs cleanup operations.
+     * 
+     * @return Denotes the success or failure of the operation.
+     */
+    public abstract boolean terminate();
 
-	/**
-	 * Stops the inventory operations for this device.
-	 */
-	public abstract void stop();
+    /**
+     * Starts the inventory operations for this device.
+     */
+    public abstract void start();
 
-	/**
-	 * Creates a new instance of this class.
-	 * @param endpoint The remote address for this device.
-	 */
-	public ReaderDevice(InetSocketAddress endpoint) {
-		this.endpoint = endpoint;
-	}
+    /**
+     * Stops the inventory operations for this device.
+     */
+    public abstract void stop();
 
-	public InetSocketAddress getEndpoint() {
-		return endpoint;
-	}
+    /**
+     * Creates a new instance of this class.
+     * 
+     * @param endpoint The remote address for this device.
+     */
+    public ReaderDevice(InetSocketAddress endpoint) {
+        this.endpoint = endpoint;
+    }
 
-	public ArrayList<Antenna> getAntennas() {
-		return antennas;
-	}
+    public InetSocketAddress getEndpoint() {
+        return endpoint;
+    }
 
-	public boolean isPerformingInventory() {
-		return performingInventory;
-	}
+    public ArrayList<Antenna> getAntennas() {
+        return antennas;
+    }
 
-	public void setPerformingInventory(boolean performingInventory) {
-		this.performingInventory = performingInventory;
-	}
+    public boolean isPerformingInventory() {
+        return performingInventory;
+    }
 
-	public ReaderEvent<Object> getEvent() {
-		return event;
-	}
+    public void setPerformingInventory(boolean performingInventory) {
+        this.performingInventory = performingInventory;
+    }
 
-	public void setEvent(ReaderEvent<Object> event) {
-		this.event = event;
-	}
+    public ReaderEvent<Object> getEvent() {
+        return event;
+    }
+
+    public void setEvent(ReaderEvent<Object> event) {
+        this.event = event;
+    }
 }
