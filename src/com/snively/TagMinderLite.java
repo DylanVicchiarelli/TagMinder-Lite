@@ -4,7 +4,7 @@ import com.snively.device.ReaderDeviceController;
 import com.snively.window.ApplicationWindow;
 
 /**
- * Starts the application and maintains mutable global variables.
+ * Starts the application and houses mutable global variables.
  * 
  * @author Dylan Vicchiarelli
  */
