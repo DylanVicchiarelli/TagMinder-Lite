@@ -63,7 +63,8 @@ public class ZebraReaderDevice extends ReaderDevice implements RfidEventsListene
 			results.add(new ReadTag(tag.getTagID(), tag.getPeakRSSI()));
 		}
 
-		event.execute(this, results, reader);
+		if (event.predicate(this, results, reader))
+			event.execute(this, results, reader);
 	}
 
 	@Override

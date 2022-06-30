@@ -7,8 +7,14 @@ public class Antenna {
 	 */
 	private int power;
 
-	public Antenna(int power) {
+	/**
+	 * The port number on the device that this antenna is connected to.
+	 */
+	private int port;
+
+	public Antenna(int power, int port) {
 		this.power = power;
+		this.port = port;
 	}
 
 	public int getPower() {
@@ -17,5 +23,13 @@ public class Antenna {
 
 	public void setPower(int power) {
 		this.power = power;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
 	}
 }

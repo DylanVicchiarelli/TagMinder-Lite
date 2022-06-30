@@ -58,7 +58,8 @@ public class ImpinjReaderDevice extends ReaderDevice implements TagReportListene
 		if (event == null)
 			return;
 
-		event.execute(this, results, reader);
+		if (event.predicate(this, results, reader))
+			event.execute(this, results, reader);
 	}
 
 	@Override

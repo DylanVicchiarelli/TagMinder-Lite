@@ -2,6 +2,10 @@ package com.snively;
 
 import java.awt.Dimension;
 
+/**
+ * Houses immutable global variables for this application.
+ * @author Dylan Vicchiarelli
+ */
 public class Constants {
 
 	/**

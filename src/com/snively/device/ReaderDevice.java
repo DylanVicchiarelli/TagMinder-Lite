@@ -32,7 +32,7 @@ public abstract class ReaderDevice {
 	public abstract boolean configure();
 	
 	/**
-	 * Terminates this device.
+	 * Terminates this device and performs cleanup operations.
 	 * @return Denotes the success or failure of the operation.
 	 */
 	public abstract boolean terminate();
@@ -47,6 +47,10 @@ public abstract class ReaderDevice {
 	 */
 	public abstract void stop();
 
+	/**
+	 * Creates a new instance of this class.
+	 * @param endpoint The remote address for this device.
+	 */
 	public ReaderDevice(InetSocketAddress endpoint) {
 		this.endpoint = endpoint;
 	}
